@@ -1,9 +1,9 @@
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import TopNav from './components/layout/TopNav';
-import Home from './booking/Home';
-import Login from './auth/Login';
-import Register from './auth/Register';
+import Home from './screens/Home';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 
 function App() {
   return (
