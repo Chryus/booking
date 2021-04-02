@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -r esm server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node -r esm jest tests/*/*.test.js"
   },
   "keywords": [],
   "author": "",
@@ -18,5 +18,9 @@
     "mongoose": "^5.12.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "supertest": "^6.1.3"
   }
 }
