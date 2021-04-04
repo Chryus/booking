@@ -2,8 +2,8 @@ import express from 'express';
 const router = express.Router();
 
 // Controllers
-import { showMessage } from '../controllers/auth';
+import { showMessage } from '../controllers/auth.js';
 
 router.get('/:message', showMessage);
 
-module.exports = router;
+export default router;
