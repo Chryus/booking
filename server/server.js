@@ -1,11 +1,9 @@
 import express from 'express';
+import router from './routes/auth.js';
 
 const app = express();
 
-app.get('/api/:message', (req, res) => {
-  res.status(200).send(`Here is your message: ${req.params.message}`);
-});
+// route middleware
+app.use('/api', router);
 
-app.listen(8000, () => console.log('Server is running on port 8000'));
-
-console.log('SERVER changed', process.version, module.exports);
+export default app;

@@ -1,14 +1,11 @@
-import app from '../server';
+import app from '../../server';
 import supertest from 'supertest';
 
 test('GET /api/:message', async () => {
   await supertest(app)
-    .get('/api/yes-kween')
+    .get('/api/hello')
     .expect(200)
     .then((response) => {
-      \;
-
-      // Check data
-      expect(response.body).toBe('yes-kween');
+      expect(response.body).toBe('Here is your message: hello');
     });
 });
