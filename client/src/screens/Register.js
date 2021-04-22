@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Message from '../../components/Message';
-import Loader from '../../components/Loader';
-import FormContainer from '../../components/FormContainer';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
+import FormContainer from '../components/FormContainer';
+import { register } from '../actions/userActions';
 
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -13,18 +14,26 @@ const RegisterScreen = ({ location, history }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
 
+  const dispatch = useDispatch();
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error } = userRegister;
+
   const submitHandler = (e) => {
     e.preventDefault();
-    console.table({ name, email, password });
-    // if (password !== confirmPassword) {
-    //   setMessage('Passwords do not match');
-    // } else {
-    // }
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match');
+    } else {
+      dispatch(register(name, email, password));
+    }
   };
 
   return (
     <FormContainer>
       <h1>Sign Up</h1>
+      {message && <Message variant='danger'>{message}</Message>}
+      {error && <Message variant='danger'>{error}</Message>}
+      {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='name'>
           <Form.Label>Name</Form.Label>
