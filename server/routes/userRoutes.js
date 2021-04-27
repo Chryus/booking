@@ -2,8 +2,8 @@ import express from 'express';
 const router = express.Router();
 
 // Controllers
-import { showMessage } from '../controllers/auth.js';
+import { registerUser } from '../controllers/userControllers.js';
 
-router.get('/:message', showMessage);
+router.route('/').post(registerUser);
 
 export default router;
