@@ -1,26 +1,29 @@
 import mongoose from 'mongoose';
+const { Schema } = mongoose;
 import bcrypt from 'bcryptjs';
 
-const userSchema = mongoose.Schema(
+const userSchema = Schema(
   {
     name: {
       type: String,
+      trim: true,
       required: true
     },
     email: {
       type: String,
+      trim: true,
       required: true,
       unique: true
     },
     password: {
       type: String,
+      minLength: 6,
+      maxLength: 12,
       required: true
     },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false
-    }
+    stripeAccountId: '',
+    stripeSeller: {},
+    stripeSession: {}
   },
   {
     timestamps: true
@@ -36,7 +39,7 @@ userSchema.pre('save', async function (next) {
     next();
   }
 
-  const salt = await bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(12);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
