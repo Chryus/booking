@@ -21,7 +21,7 @@ test('POST /api/users', async () => {
   const data = {
     name: 'Jasper',
     email: 'user.password@test.com',
-    password: 'honk'
+    password: 'honkhonk'
   };
 
   await supertest(app)
@@ -40,5 +40,26 @@ test('POST /api/users', async () => {
       expect(user.name).toBe(data.name);
       expect(user.email).toBe(data.email);
       expect(user.password).toBeTruthy();
+    });
+});
+
+test('POST /api/users/login', async () => {
+  const userData = {
+    name: 'Jasper',
+    email: 'user.password@test.com',
+    password: 'honkhonk'
+  };
+
+  const user = await User.create(userData);
+
+  await supertest(app)
+    .post('/api/users/login')
+    .send({ email: userData['email'], password: userData['password'] })
+    .expect(200)
+    .then(async (res) => {
+      // Check the response
+      expect(res.body.name).toBe(userData.name);
+      expect(res.body.email).toBe(userData.email);
+      expect(res.body.token).toBeTruthy();
     });
 });
