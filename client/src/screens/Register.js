@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,11 +13,25 @@ const RegisterScreen = ({ location, history }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
+  const [variant, setVariant] = useState(null);
+  const [userCreated, setuserCreated] = useState(false);
 
   const dispatch = useDispatch();
 
   const userRegister = useSelector((state) => state.userRegister);
-  const { loading, error } = userRegister;
+  const { loading, error, userInfo } = userRegister;
+
+  useEffect(() => {
+    if (userCreated) {
+      setMessage('User created');
+      setTimeout(() => {
+        setuserCreated(false);
+        history.push('/');
+      }, 500);
+    } else if (userInfo) {
+      history.push('/');
+    }
+  }, [history, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -25,13 +39,15 @@ const RegisterScreen = ({ location, history }) => {
       setMessage('Passwords do not match');
     } else {
       dispatch(register(name, email, password));
+      setuserCreated(true);
+      setVariant('success');
     }
   };
 
   return (
     <FormContainer>
       <h1>Sign Up</h1>
-      {message && <Message variant='danger'>{message}</Message>}
+      {message && <Message variant={variant}>{message}</Message>}
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
@@ -72,7 +88,11 @@ const RegisterScreen = ({ location, history }) => {
           ></Form.Control>
         </Form.Group>
 
-        <Button type='submit' variant='primary'>
+        <Button
+          disabled={!name || !email || !password || !confirmPassword}
+          type='submit'
+          variant='primary'
+        >
           Register
         </Button>
       </Form>
