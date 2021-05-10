@@ -3,10 +3,13 @@ import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
-  const { user } = useSelector((state) => ({ ...state }));
+  const userLogin = useSelector((state) => state.userLogin);
+
+  const { userInfo } = userLogin;
+
   return (
     <Container fluid className='h1 p-5 text-center'>
-      Home Page {JSON.stringify(user)}
+      Home Page {userInfo && userInfo.name}
     </Container>
   );
 };

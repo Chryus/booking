@@ -8,7 +8,15 @@ import {
   USER_REGISTER_FAIL
 } from '../constants/userConstants';
 
-export const userLoginReducer = (state = {}, action) => {
+let userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null;
+
+let initialState = {
+  userInfo: userInfoFromStorage
+};
+
+export const userLoginReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };
@@ -23,7 +31,7 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
-export const userRegisterReducer = (state = {}, action) => {
+export const userRegisterReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
       return { loading: true };

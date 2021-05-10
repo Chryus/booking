@@ -31,7 +31,7 @@ const RegisterScreen = ({ location, history }) => {
     } else if (userInfo) {
       history.push('/');
     }
-  }, [history, userInfo]);
+  }, [history, userInfo, userCreated]);
 
   const submitHandler = (e) => {
     e.preventDefault();
