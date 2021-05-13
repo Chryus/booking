@@ -3,14 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { logout } from '../../actions/userActions';
 
 const TopNav = () => {
+  const dispatch = useDispatch();
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar bg='primary' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>Hotel Land</Navbar.Brand>
@@ -23,16 +30,18 @@ const TopNav = () => {
                   <LinkContainer to='/'>
                     <NavDropdown.Item>My Hotels</NavDropdown.Item>
                   </LinkContainer>
-                  <NavDropdown.Item onClick={''}>Logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <NavDropdown title='New User' id='adminmenu '>
-                  <LinkContainer to='login'>
+                  <LinkContainer to='/login'>
                     <NavDropdown.Item>
                       <i className='fas fa-user'></i>Sign In
                     </NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to='/admin/productlist'>
+                  <LinkContainer to='/register'>
                     <NavDropdown.Item>
                       <i className='fas fa-user'></i>Register
                     </NavDropdown.Item>

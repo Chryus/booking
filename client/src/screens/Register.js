@@ -90,6 +90,7 @@ const RegisterScreen = ({ location, history }) => {
 
         <Button
           disabled={!name || !email || !password || !confirmPassword}
+          className='mt-3'
           type='submit'
           variant='primary'
         >
