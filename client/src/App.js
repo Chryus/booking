@@ -4,6 +4,8 @@ import TopNav from './components/layout/TopNav';
 import Home from './screens/Home';
 import Login from './screens/Login';
 import Register from './screens/Register';
+import Dashboard from './screens/user/Dashboard';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
+            <PrivateRoute exact path='/dashboard' component={Dashboard} />
           </Switch>
         </Container>
       </main>
